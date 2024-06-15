@@ -1,0 +1,71 @@
+.navbar-con {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.navbar-con div:first-child {
+  display: flex;
+}
+
+.navbar-con div:first-child img {
+  width: 59px;
+  height: 30px;
+  top: 17px;
+  left: 200px;
+}
+.navbar-con div:first-child h3 {
+  margin-left: 15px;
+  font-family: Roboto;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 24px;
+  text-align: left;
+}
+.navbar-con div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.navbar-con div:last-child {
+  gap: 30px;
+}
+.search-con {
+  display: flex;
+  gap: 0;
+  width: 214px;
+  height: 28px;
+  top: 18px;
+  left: 781px;
+  gap: 0px;
+  opacity: 0px;
+}
+.search-con input {
+  width: 214px;
+  height: 28px;
+  top: 18px;
+  left: 781px;
+  gap: 0px;
+  border-radius: 3px 0px 0px 0px;
+  border: 1px 0px 0px 0px;
+  opacity: 0px;
+}
+.search-con button {
+  width: 34px;
+  height: 26px;
+  top: 19px;
+  left: 960px;
+  gap: 0px;
+  border-radius: 0px 2px 2px 0px;
+  opacity: 0px;
+  text-align: center;
+}
+.logout {
+  width: 86px;
+  height: 32px;
+  background-color: rgb(37, 150, 190);
+  color: white;
+  border-radius: 7px;
+  border: 0;
+}
