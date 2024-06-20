@@ -1,4 +1,4 @@
-import {Route, Routes} from 'react-router-dom'
+import {Route, BrowserRouter} from 'react-router-dom'
 
 // import Login from './components/Login'
 import Home from './components/Home'
@@ -10,13 +10,13 @@ import NotFound from './components/NotFound'
 import './App.css'
 
 const App = () => (
-  <Routes>
-    <Route exact path="/login" element={<Login />} />
+  <BrowserRouter>
+    <Route exact path="/login" component={Login} />
 
-    <Route exact path="/" element={<Home />} />
-    <Route exact path="/my-profile" element={<MyProfile />} />
+    <Route exact path="/" component={Home} />
+    <Route exact path="/my-profile" component={MyProfile} />
     <Route element={NotFound} />
-  </Routes>
+  </BrowserRouter>
 )
 
 export default App

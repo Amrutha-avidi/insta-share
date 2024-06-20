@@ -1,5 +1,5 @@
 import {useState} from 'react'
-import {Navigate} from 'react-router-dom'
+import {useHistory, Redirect} from 'react-router-dom'
 
 import Cookies from 'js-cookie'
 import './index.css'
@@ -9,7 +9,8 @@ const Login = () => {
   const [password, setPassword] = useState('')
   const [showError, setShowError] = useState(false)
   const [errorMsg, setErrorMsg] = useState('')
-  const [redirect, setRedirect] = useState(false)
+
+  const history = useHistory()
 
   const loginUser = async e => {
     e.preventDefault()
@@ -28,15 +29,15 @@ const Login = () => {
 
     if (response.ok) {
       Cookies.set('jwt_token', token, {expires: 30})
-      setRedirect(true)
+      history.replace('/')
     } else {
       setShowError(true)
-      setErrorMsg('Enter your Username and Password')
-      setRedirect(false)
+      setErrorMsg(data.error_msg)
     }
   }
-  if (redirect) {
-    return <Navigate to="/" />
+  const jwtToken = Cookies.get('jwt_token')
+  if (jwtToken !== undefined) {
+    return <Redirect to="/" />
   }
 
   return (

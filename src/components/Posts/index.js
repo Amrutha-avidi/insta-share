@@ -1,6 +1,7 @@
 import {useState, useEffect} from 'react'
 import Cookies from 'js-cookie'
 import Loader from 'react-loader-spinner'
+import PostItem from '../PostItem'
 
 import './index.css'
 
@@ -11,8 +12,8 @@ const apiStatusConstant = {
   inProgress: 'IN_PROGRESS',
 }
 
-const Stories = () => {
-  const [storyData, setStoryData] = useState(null)
+const Posts = () => {
+  const [postsData, setPostsData] = useState(null)
   const [apiStatusForStories, setApiStatusForStories] = useState(
     apiStatusConstant.initial,
   )
@@ -20,7 +21,7 @@ const Stories = () => {
   useEffect(() => {
     setApiStatusForStories(apiStatusConstant.inProgress)
     const jwtToken = Cookies.get('jwt_token')
-    const url = 'https://apis.ccbp.in/insta-share/stories'
+    const url = 'https://apis.ccbp.in/insta-share/posts'
     const options = {
       method: 'GET',
       headers: {
@@ -31,7 +32,26 @@ const Stories = () => {
       const response = await fetch(url, options)
       if (response.ok) {
         const data = await response.json()
-        setStoryData(data.users_stories)
+        const updatedData = data.posts.map(each => ({
+          postId: each.post_id,
+          userId: each.user_id,
+          likeStatus: false,
+          userName: each.user_name,
+          profilePic: each.profile_pic,
+          postDetails: {
+            imageUrl: each.post_details.image_url,
+            caption: each.post_details.caption,
+          },
+          likesCount: each.likes_count,
+          comments: each.comments.map(eachItem => ({
+            userName: eachItem.user_name,
+            userId: eachItem.user_id,
+            comment: eachItem.comment,
+          })),
+          createdAt: each.created_at,
+        }))
+
+        setPostsData(updatedData)
         setApiStatusForStories(apiStatusConstant.success)
       } else {
         setApiStatusForStories(apiStatusConstant.failure)
@@ -42,13 +62,9 @@ const Stories = () => {
   }, [])
 
   const getStoriesView = () => (
-    <div className="story-con">
-      {' '}
-      {storyData?.map(each => (
-        <div key={each.user_id} className="story-item">
-          <img src={each.story_url} alt={each.user_id} className="story-img" />
-          <p>{each.user_name.substring(0, 10)}</p>
-        </div>
+    <div className="posts-con">
+      {postsData.map(each => (
+        <PostItem key={each.postId} postData={each} />
       ))}
     </div>
   )
@@ -90,12 +106,4 @@ const Stories = () => {
   )
 }
 
-export default Stories
-
-// const Stories = () => (
-//   <div>
-//     <h1>Stories</h1>
-//   </div>
-// )
-
-// export default Stories
+export default Posts
