@@ -4,6 +4,9 @@ import Cookies from 'js-cookie'
 import NavBar from '../NavBar'
 import Stories from '../Stories'
 import Posts from '../Posts'
+import SearchContext from '../../Context/SearchContext'
+import SearchComponent from '../SearchComponent'
+// import SearchContext from '../../Context/SearchContext'
 
 const Home = () => {
   const jwtToken = Cookies.get('jwt_token')
@@ -14,8 +17,26 @@ const Home = () => {
   return (
     <div>
       <NavBar />
-      <Stories />
-      <Posts />
+      <SearchContext.Consumer>
+        {value => {
+          const {showSearchComponent} = value
+
+          return (
+            <>
+              {showSearchComponent ? (
+                <>
+                  <SearchComponent />
+                </>
+              ) : (
+                <>
+                  <Stories />
+                  <Posts />
+                </>
+              )}
+            </>
+          )
+        }}
+      </SearchContext.Consumer>
     </div>
   )
 }

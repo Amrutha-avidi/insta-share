@@ -1,3 +1,4 @@
+import {Link} from 'react-router-dom'
 import {BsHeart} from 'react-icons/bs'
 import {FaRegComment} from 'react-icons/fa'
 import {BiShareAlt} from 'react-icons/bi'
@@ -60,17 +61,29 @@ const PostItem = props => {
 
   return (
     <div className="post-item-con">
-      <div className="profile-con">
+      <div className="post-profile-con">
         <img className="profile-img" src={profilePic} alt={userName} />
-        <p>{userName}</p>
+        <Link
+          to={`/users/${userId}`}
+          style={{
+            textDecoration: 'none',
+            fontFamily: 'Roboto',
+            fontSize: '14px',
+            fontWeight: '500',
+            color: '#262626',
+          }}
+        >
+          {' '}
+          <p>{userName}</p>
+        </Link>
       </div>
       <img className="post" src={imageUrl} alt={userName} />
       <div className="post-content">
         <div className="icons-con">
           {liked ? (
-            <FcLike onClick={decreaseLikeCount} />
+            <FcLike onClick={decreaseLikeCount} testid="unLikeIcon" />
           ) : (
-            <BsHeart onClick={increaseLikeCount} />
+            <BsHeart onClick={increaseLikeCount} testid="likeIcon" />
           )}
           <FaRegComment />
           <BiShareAlt />
@@ -82,7 +95,7 @@ const PostItem = props => {
             <span>{each.userName}</span> {each.comment}
           </div>
         ))}
-        <p>{createdAt}</p>
+        <p className="created-at">{createdAt}</p>
       </div>
     </div>
   )

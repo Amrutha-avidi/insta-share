@@ -44,13 +44,13 @@ const Login = () => {
     <div className="login-con">
       <img
         src="https://res.cloudinary.com/drpddho9b/image/upload/v1718255874/login_img_eq2h6m.png"
-        alt="login-img"
+        alt="website login"
       />
       <div className="login-cred">
         <div className="logo-con">
           <img
             src="https://res.cloudinary.com/drpddho9b/image/upload/v1718256221/logo_z0fn9m.png"
-            alt="logo"
+            alt="website logo"
           />
           <h2>Insta Share</h2>
         </div>

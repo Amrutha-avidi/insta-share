@@ -1,6 +1,7 @@
 import {useState, useEffect} from 'react'
 import Cookies from 'js-cookie'
 import Loader from 'react-loader-spinner'
+import Slider from 'react-slick'
 
 import './index.css'
 
@@ -12,6 +13,14 @@ const apiStatusConstant = {
 }
 
 const Stories = () => {
+  const settings = {
+    dots: false,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 7,
+    slidesToScroll: 1,
+  }
+
   const [storyData, setStoryData] = useState(null)
   const [apiStatusForStories, setApiStatusForStories] = useState(
     apiStatusConstant.initial,
@@ -43,13 +52,14 @@ const Stories = () => {
 
   const getStoriesView = () => (
     <div className="story-con">
-      {' '}
-      {storyData?.map(each => (
-        <div key={each.user_id} className="story-item">
-          <img src={each.story_url} alt={each.user_id} className="story-img" />
-          <p>{each.user_name.substring(0, 10)}</p>
-        </div>
-      ))}
+      <Slider {...settings}>
+        {storyData?.map(each => (
+          <li key={each.user_name} className="story-item">
+            <img src={each.story_url} alt="user story" className="story-img" />
+            <p>{each.user_name.substring(0, 10)}</p>
+          </li>
+        ))}
+      </Slider>
     </div>
   )
 
@@ -84,18 +94,10 @@ const Stories = () => {
   }
 
   return (
-    <div>
-      <div>{renderApiStatusViewForStories()}</div>
+    <div className="main-con">
+      <ul className="render-con">{renderApiStatusViewForStories()}</ul>
     </div>
   )
 }
 
 export default Stories
-
-// const Stories = () => (
-//   <div>
-//     <h1>Stories</h1>
-//   </div>
-// )
-
-// export default Stories

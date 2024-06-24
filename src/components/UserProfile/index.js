@@ -12,16 +12,21 @@ const apiStatusConstant = {
   failure: 'FAILURE',
   inProgress: 'IN_PROGRESS',
 }
-const MyProfile = () => {
+const UserProfile = props => {
   const [profileData, setProfileData] = useState(null)
   const [apiStatusForProfile, setApiStatusForProfile] = useState(
     apiStatusConstant.initial,
   )
+
+  const {match} = props
+  const {params} = match
+  const {userId} = params
+
   useEffect(() => {
     setApiStatusForProfile(apiStatusConstant.inProgress)
 
     const jwtToken = Cookies.get('jwt_token')
-    const url = 'https://apis.ccbp.in/insta-share/my-profile'
+    const url = `https://apis.ccbp.in/insta-share/users/${userId}`
     const options = {
       method: 'GET',
       headers: {
@@ -34,19 +39,19 @@ const MyProfile = () => {
         const data = await response.json()
         const updatedData = {
           profile: {
-            id: data.profile.id,
-            userId: data.profile.user_id,
-            userName: data.profile.user_name,
-            profilePic: data.profile.profile_pic,
-            followersCount: data.profile.followers_count,
-            followingCount: data.profile.following_count,
-            userBio: data.profile.user_bio,
-            postsCount: data.profile.posts_count,
-            posts: data.profile.posts.map(each => ({
+            id: data.user_details.id,
+            userId: data.user_details.user_id,
+            userName: data.user_details.user_name,
+            profilePic: data.user_details.profile_pic,
+            followersCount: data.user_details.followers_count,
+            followingCount: data.user_details.following_count,
+            userBio: data.user_details.user_bio,
+            postsCount: data.user_details.posts_count,
+            posts: data.user_details.posts.map(each => ({
               id: each.id,
               image: each.image,
             })),
-            stories: data.profile.stories.map(each => ({
+            stories: data.user_details.stories.map(each => ({
               id: each.id,
               image: each.image,
             })),
@@ -60,7 +65,8 @@ const MyProfile = () => {
       }
     }
     fetchData()
-  }, [])
+  }, [userId])
+
   const getProfileView = () => <ProfilePage data={profileData} />
 
   const getStoriesFailureView = () => (
@@ -101,4 +107,4 @@ const MyProfile = () => {
   )
 }
 
-export default MyProfile
+export default UserProfile

@@ -1,7 +1,10 @@
 import {useState, useEffect} from 'react'
 import Cookies from 'js-cookie'
 import Loader from 'react-loader-spinner'
+
 import PostItem from '../PostItem'
+
+// import SearchContext from '../../Context/SearchContext'
 
 import './index.css'
 

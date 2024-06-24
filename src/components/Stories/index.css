@@ -1,11 +1,11 @@
-.story-con {
+.main-con {
   display: flex;
-  flex-direction: row;
-  /* flex-wrap: wrap; */
   justify-content: center;
   align-items: center;
-  gap: 50px;
-  padding: 20px 0px;
+}
+.render-con {
+  width: 80%;
+  margin-top: 10px;
 }
 
 .story-item {
@@ -18,6 +18,12 @@
   width: 70px;
   height: 70px;
   border-radius: 50%;
+  margin-left: 65px;
+}
+
+.slick-prev:before,
+.slick-next:before {
+  color: black;
 }
 .story-item p {
   font-family: Roboto;
